@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: cloudbees-io/checkout@v1
         with:
-          repository: TARGET_ORG/PROJECT_NAME-auth
+          repository: cb-golden-demo-org/harckers-organized-appro-auth
       - uses: cloudbees-days/setup-kubeconfig
         name: Set kubeconfig
         with:
@@ -31,13 +31,13 @@ jobs:
         uses: cloudbees-io/helm-install@v1
         with:
           chart-location: ${{ cloudbees.workspace }}/chart
-          release-name: PROJECT_NAME-auth
+          release-name: harckers-organized-appro-auth
           namespace: ${{ vars.namespace }}
           values: |
             image:
-              repository: ${{ vars.DOCKER_USER }}/PROJECT_NAME-auth
+              repository: ${{ vars.DOCKER_USER }}/harckers-organized-appro-auth
               tag: ${{ inputs.artifactVersion }}
-            hostname: PROJECT_NAME-auth.${{ inputs.environment }}.preview.cb-demos.io
+            hostname: harckers-organized-appro-auth.${{ inputs.environment }}.preview.cb-demos.io
       - name: Register deployed artifact
         uses: cloudbees-io/register-deployed-artifact@v2
         with:
@@ -47,7 +47,7 @@ jobs:
         with:
           content: |-
             ## Deployed environment
-            [Dev frontend](https://PROJECT_NAME-auth.${{ inputs.environment }}.preview.cb-demos.io/)
+            [Dev frontend](https://harckers-organized-appro-auth.${{ inputs.environment }}.preview.cb-demos.io/)
 
-            Running ${{ vars.DOCKER_USER }}/PROJECT_NAME-auth:${{ inputs.artifactVersion }}
+            Running ${{ vars.DOCKER_USER }}/harckers-organized-appro-auth:${{ inputs.artifactVersion }}
           format: MARKDOWN
